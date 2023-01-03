@@ -15,7 +15,7 @@ namespace VSporte.Task.Test.Providers
         /// Отправить модель для манипуляций с бд для сравнения
         /// </summary>
         /// <returns></returns>
-        public void AddModelToDataBase()
+        public override void AddModelToDataBase()
         {
             DataContext _context = new DataContext(); // контекст базы данных
             using (_context)
@@ -58,7 +58,7 @@ namespace VSporte.Task.Test.Providers
         /// Получить эталонную модель
         /// </summary>
         /// <returns></returns>
-        public (List<ClubItem>, List<PlayerItem>, List<PlayerClubItem>) GetEtalonModel()
+        public override (List<ClubItem>, List<PlayerItem>, List<PlayerClubItem>) GetEtalonModel()
         {
             List<ClubItem> etalonClubItems = new List<ClubItem>
         {

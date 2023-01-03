@@ -1,8 +1,14 @@
-﻿CREATE PROCEDURE dbo.DuplicatesKillerTask1_3
+﻿-- =============================================
+-- Author:		Шубович Артём
+-- Create date:	01.01.2023
+-- Description:	Процедура, отсекающая дубликаты в таблицах ( dbo.ClubItems, dbo.PlayerItems, dbo.PlayerClubItems)
+-- с использованием связи игрок - клуб
+-- =============================================
+CREATE PROCEDURE dbo.DuplicatesKillerTask1_3
 AS
 BEGIN
-    -- для начала вычищаем дубли игроков в рамках одного клуба (имя, фамилия)
-    CREATE TABLE #PlayersDuplicate -- временная табличка для связи игроков и клубов
+    -- в начачле очищаются дубли игроков в рамках одного клуба (имя, фамилия)
+    CREATE TABLE #PlayersDuplicate -- временная таблица для связи игроков и клубов
     (
         PlayerId INT,
         Surname NVARCHAR (50),
@@ -19,7 +25,7 @@ BEGIN
         FROM PlayerItems palyers
             INNER JOIN PlayerClubItems clubPlayers ON clubPlayers.PlayerId = palyers.PlayerId
 
-    ;WITH playersFromTheSameClub AS -- сначала вычищаем игроков, однофамильцев играющих за один и тот же клуб
+    ;WITH playersFromTheSameClub AS -- удаление игроков, однофамильцев играющих за один и тот же клуб
         (
             SELECT PlayerId, Surname, Name, Number, ClubId,
                 ROW_NUMBER() over (PARTITION BY Surname, Name, ClubId ORDER BY PlayerId) AS PlayerGroupNumber
@@ -39,7 +45,7 @@ BEGIN
 
         PRIMARY KEY (PlayerId, ClubId, Number)
      )
-     INSERT INTO #ResolvePlayersDupplicate -- потом вычищаем игроков, однофамильцев играющих за разные клубы с одинаковым номером
+     INSERT INTO #ResolvePlayersDupplicate -- очистка игроков, однофамильцев играющих за разные клубы с одинаковым номером
                                            -- оставляем только одну сущность и переносим ее в клуб вместо сущности дубликата
      SELECT PlayerId, Surname, Name, Number, ClubId,
                 ROW_NUMBER() over (PARTITION BY Surname, Name, Number ORDER BY ClubId) AS PlayerGroupNumber
@@ -61,10 +67,10 @@ BEGIN
                 AND item.PlayerId <> upd.PlayerId
         ORDER BY PlayerId
 
-    DELETE FROM PlayerItems -- вычищаем игроков, однофамильцев играющих за разные клубы с одинаковым номером
+    DELETE FROM PlayerItems -- удаление игроков, однофамильцев играющих за разные клубы с одинаковым номером
     WHERE PlayerId IN (SELECT PlayerId FROM #ResolvePlayersDupplicate WHERE PlayerGroupNumber <> 1)
 
-    -- перед удалением дубликата клуба необходимо перетащить игрока в тот клуб, который останется по факту
+    -- перед удалением дубликата клуба необходимо переместить игрока в тот клуб, который останется по факту
     -- в нашем случае Двинятин переезжает в клуб Родина (Москва) ClubId = 1
     ;WITH corrClubs AS -- выбираем клубы, которые не попадут под удаление для переноса в них игроков
     (
@@ -83,11 +89,11 @@ BEGIN
             WHERE clIt.City IS NULL
     )
 
-    UPDATE plClIT SET plClIT.ClubId = itemsToUpdate.CorrClubId -- апдейтим актуальный клуб
+    UPDATE plClIT SET plClIT.ClubId = itemsToUpdate.CorrClubId -- апдейт актуального клуба
         FROM PlayerClubItems plClIT
         INNER JOIN itemsToUpdate ON itemsToUpdate.OldClubId = plClIT.ClubId AND itemsToUpdate.PlayerId = plClIT.PlayerId
 
-     ;WITH clubsDuplicateResollve AS -- вычищаю дубли по Имени клуба и Городу
+     ;WITH clubsDuplicateResollve AS -- очищаются дубли по Имени клуба и Городу
         (
            SELECT ClubId, dbo.NormalizeName(FullName) AS FullName, dbo.NormalizeName(City) AS City,
                   ROW_NUMBER() over (PARTITION BY FullName ORDER BY City DESC ) ClubInfoNumber
@@ -103,7 +109,7 @@ BEGIN
             LEFT JOIN PlayerItems plIt ON plIt.PlayerId = plClIt.PlayerId
         WHERE plIt.PlayerId IS NULL;
 
-     DELETE FROM PlayerClubItems -- если остались дубликаты - подчищаем
+     DELETE FROM PlayerClubItems -- если остались дубликаты - подчищаются
      WHERE SystemID NOT IN
           (SELECT MIN(SystemID) FROM PlayerClubItems GROUP BY PlayerId, ClubId);
 

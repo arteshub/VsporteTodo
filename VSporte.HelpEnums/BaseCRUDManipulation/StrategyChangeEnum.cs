@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 namespace VSporte.HelpEnums.BaseCRUDManipulation
 {
     /// <summary>
-    /// Enum для описания всвозможных стратегий
+    /// Enum для описания стратегий 
+    /// CRUD операций для сущностей
     /// </summary>
     public enum StrategyChangeEnum
     {
-        ClubItemStrategy = 1, // создаст ClubItemStrategy
-        PlayerClubItemStrategy = 2, // создаст PlayerClubItemStrategy
-        PlayerItemStrategy = 3, // создаст PlayerItemStrategy
-        GameEventStrategy = 4 // создаст GameEventStrategy
+        ClubItemStrategy = 1, 
+        PlayerClubItemStrategy = 2, 
+        PlayerItemStrategy = 3, 
+        GameEventStrategy = 4 
     }
 }

@@ -8,33 +8,52 @@ using VSporte.HelpEnums;
 
 namespace Vsporte.HandlerServices.BaseEntityCRUDStrategy
 {
+    /// <summary>
+    /// Класс устанавливающий необходимую стратегии
+    /// </summary>
     internal class BaseCrudStrategy 
     {
        private IBaseCrudStrategy? _baseCrudStrategy;
 
-       public void SetStrategy(IBaseCrudStrategy baseCrudStrategy)
+        /// <summary>
+        /// Метод определения стратегии
+        /// </summary>
+        public void SetStrategy(IBaseCrudStrategy baseCrudStrategy)
        {
            _baseCrudStrategy = baseCrudStrategy;    
        }
 
-       public Task<IBaseEntity> GetByID(int id) // применение стратегии поиска по идентификатору
+        /// <summary>
+        /// Базовый метод поиска по идентификатору
+        /// </summary> 
+        public Task<IBaseEntity> GetByID(int id) // применение стратегии поиска по идентификатору
        {
            Error(_baseCrudStrategy);
            return _baseCrudStrategy.GetByID(id);
            
        }
 
-       public async Task AddEntity(IBaseEntity entity)
+        /// <summary>
+        /// Базовый метод добавления сущности в БД
+        /// </summary> 
+        public async Task AddEntity(IBaseEntity entity)
        {
            Error(_baseCrudStrategy);
            await _baseCrudStrategy.AddEntity(entity);
        }
-       public async Task UpdateEntity(int id, IBaseEntity entity)
+
+        /// <summary>
+        /// Базовый метод обновления сущности в БД
+        /// </summary> 
+        public async Task UpdateEntity(int id, IBaseEntity entity)
        {
            Error(_baseCrudStrategy);
            await _baseCrudStrategy.UpdateEntity(id, entity);
        }
 
+       /// <summary>
+       /// Базовый метод удаления сущности из БД
+       /// </summary> 
         public async Task DeleteEntity(int id)
        {
            Error(_baseCrudStrategy);
@@ -44,11 +63,10 @@ namespace Vsporte.HandlerServices.BaseEntityCRUDStrategy
         /// <summary>
         /// метод, проверяющий наличие стратегии
         /// </summary>
-        /// <param name="_baseCrudStrategy"></param>
-        /// <exception cref="NotImplementedException"></exception>
+        /// <param name="_baseCrudStrategy">Сущность стратегии</param>
         public void Error(IBaseCrudStrategy? _baseCrudStrategy)
         {
-            if (_baseCrudStrategy is null) throw new NotImplementedException("Контекст сущности не найден");
+            if (_baseCrudStrategy is null) throw new ArgumentException("Контекст сущности не найден");
         }
 
     }

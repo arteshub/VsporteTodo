@@ -44,6 +44,17 @@ namespace VSporte.Task.Test.Providers
                 return (clubItems, playerItems, playerClubItems);
             }
         }
+
+        /// <summary>
+        /// Добавить модель в базу
+        /// </summary>
+        public abstract void AddModelToDataBase();
+
+        /// <summary>
+        /// Получить эталонную модель
+        /// </summary>
+        /// <returns>Эталонная модель</returns>
+        public abstract (List<ClubItem>, List<PlayerItem>, List<PlayerClubItem>) GetEtalonModel();
     }
 
 }

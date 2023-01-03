@@ -22,8 +22,8 @@ namespace Vsporte.BaseManipulationsWebApi.Controllers.ClubItemControllers
         /// <summary>
         /// получение сущности по ее идентификатору
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">Идентификатор сущности</param>
+        /// <returns>Искомая сущность</returns>
         [HttpGet]
         public async Task<ActionResult<IBaseEntity>> GetItemByID(int id, StrategyChangeEnum strategyId)
         {
@@ -42,7 +42,7 @@ namespace Vsporte.BaseManipulationsWebApi.Controllers.ClubItemControllers
         /// <summary>
         /// создание новой сущности
         /// </summary>
-        /// <param name="clubItem"></param>
+        /// <param name="item">Обобщенная модель</param>
         [HttpPost]
         public async Task AddItemAsync(DesiredModel item, StrategyChangeEnum strategyId)
         {
@@ -55,8 +55,8 @@ namespace Vsporte.BaseManipulationsWebApi.Controllers.ClubItemControllers
         /// <summary>
         /// редактирование существующей сущности
         /// </summary>
-        /// <param name="clubItem"></param>
-        /// <param name="id"></param>
+        /// <param name="item">Обобщенная модель</param>
+        /// <param name="id">Идентитификатор сущности</param>
         [HttpPut]
         public async Task UpdateItemAsync(DesiredModel item, int id, StrategyChangeEnum strategyId)
         {
@@ -69,7 +69,7 @@ namespace Vsporte.BaseManipulationsWebApi.Controllers.ClubItemControllers
         /// <summary>
         /// редактирование существующей сущности
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Идентитификатор сущности   </param>
         [HttpDelete]
         public async Task DeleteItem(int id, StrategyChangeEnum strategyId)
         {

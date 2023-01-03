@@ -9,12 +9,15 @@ using VSporte.Task.Solution.Models;
 
 namespace VSporte.DataAccessLayer.DbContextBase
 {
+    /// <summary>
+    /// Класс, описывающий схему зависимостей в БД
+    /// </summary>
     internal class BaseEntitiesFluentApt : DbContext
     {
         /// <summary>
-        /// метод описывающий связи в БД и вешающий нужные ключики
+        /// метод описывающий связи в БД и вешающий нужные ключи
         /// </summary>
-        /// <param name = "modelBuilder" ></ param >
+        /// <param name = "modelBuilder" >Конструктор моделей</ param >
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Первичный ключ для сущности PlayerItem 

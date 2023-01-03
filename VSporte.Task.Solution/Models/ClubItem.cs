@@ -6,16 +6,19 @@ using VSporte.DataAccessLayer.Models.Interfaces;
 
 namespace VSporte.Task.Solution.Models;
 
-public class ClubItem: IBaseEntity
-{
-    [Key]
-    public int ClubId { get; set; }
-    public string FullName { get; set; } = string.Empty;
-    public string? City { get; set; }
-    public string? VsporteDescription { get; set; }
-    public string? ShortName { get; set; }
+    /// <summary>
+    /// ћодель, описывающа€ сущность клуба
+    /// </summary>
+    public class ClubItem: IBaseEntity
+    {
+        [Key]
+        public int ClubId { get; set; } // идентификатор клуба
+        public string FullName { get; set; } = string.Empty; // полное название
+        public string? City { get; set; } = string.Empty; // город клуба
+        public string? VsporteDescription { get; set; } = string.Empty; // примечание Vsporte
+        public string? ShortName { get; set; } = string.Empty; // краткое именование
 
-    // дл€ внешних ключиков
-    public virtual ICollection<GameEvent> GameEvents { get; set; }
-    public virtual ICollection<PlayerClubItem> PlayerClubItems { get; set; }
-}
+        // свойства дл€ установки внешних ключей
+        public virtual ICollection<GameEvent> GameEvents { get; set; }
+        public virtual ICollection<PlayerClubItem> PlayerClubItems { get; set; }
+    }

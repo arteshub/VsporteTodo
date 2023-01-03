@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace VSporte.HelpEnums
 {
+    /// <summary>
+    /// Enum использующийся для указания уровня сложности задания
+    /// </summary>
     public enum TodoIdChangerEnum
     {
         /// <summary>

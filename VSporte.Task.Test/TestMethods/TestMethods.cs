@@ -18,31 +18,7 @@ public class Tests
     {
         FingerprintProviderTask_1_1 provider = new FingerprintProviderTask_1_1();
 
-        try
-        {
-            provider.TruncateModelFromDatabase(); // очищаем базу
-
-            provider.AddModelToDataBase(); // заполняем базу тестовыми данными
-
-            await DuplicateResolverService.DuplicateResolveBad(); // выполняем логику задания 1.1
-
-            var etalonClubs = provider.GetEtalonModel();
-
-            var actualClubs = provider.GetModelFromDatabase();
-
-            bool areEqual = etalonClubs.Item1.OrderBy(x => x).SequenceEqual(actualClubs.Item1.OrderBy(x => x)) 
-                && etalonClubs.Item2.OrderBy(x => x).SequenceEqual(actualClubs.Item2.OrderBy(x => x))
-                && etalonClubs.Item3.OrderBy(x => x).SequenceEqual(actualClubs.Item3.OrderBy(x => x));
-
-            provider.TruncateModelFromDatabase(); // очищаем базу
-
-            Assert.IsTrue(areEqual); // вердикт теста
-        }
-        catch (Exception)
-        {
-
-            provider.TruncateModelFromDatabase(); // очищаем базу
-        } 
+        await TestMethod(provider, DuplicateResolverService.DuplicateResolveBad);
     }
 
     [Test]
@@ -51,31 +27,7 @@ public class Tests
     {
         FingerprintProviderTask_1_2 provider = new FingerprintProviderTask_1_2();
 
-        try
-        {
-            provider.TruncateModelFromDatabase(); // очищаем базу
-
-            provider.AddModelToDataBase(); // заполняем базу тестовыми данными
-
-            await DuplicateResolverService.DuplicateResolveGood(); // выполняем логику задания 1.2
-
-            var etalonClubs = provider.GetEtalonModel();
-
-            var actualClubs = provider.GetModelFromDatabase();
-
-            bool areEqual = etalonClubs.Item1.OrderBy(x => x).SequenceEqual(actualClubs.Item1.OrderBy(x => x))
-                && etalonClubs.Item2.OrderBy(x => x).SequenceEqual(actualClubs.Item2.OrderBy(x => x))
-                && etalonClubs.Item3.OrderBy(x => x).SequenceEqual(actualClubs.Item3.OrderBy(x => x));
-
-            provider.TruncateModelFromDatabase(); // очищаем базу
-
-            Assert.IsTrue(areEqual); // вердикт теста
-        }
-        catch (Exception)
-        {
-
-            provider.TruncateModelFromDatabase(); // очищаем базу
-        }
+        await TestMethod(provider, DuplicateResolverService.DuplicateResolveGood);
     }
 
     [Test]
@@ -84,13 +36,22 @@ public class Tests
     {
         FingerprintProviderTask_1_3 provider = new FingerprintProviderTask_1_3();
 
+        await TestMethod(provider, DuplicateResolverService.DuplicateResolvePerfect);
+    }
+
+    /// <summary>
+    /// Базовый тестовый метод для всех заданий
+    /// </summary>
+    /// <param name="provider"></param>
+    /// <param name="testLogic"></param>
+    /// <returns>Результат выполнения теста</returns>
+    private async System.Threading.Tasks.Task TestMethod(BaseFingerPrintProvider provider, Func<System.Threading.Tasks.Task> testLogic)
+    {
         try
         {
-            provider.TruncateModelFromDatabase(); // очищаем базу
-
             provider.AddModelToDataBase(); // заполняем базу тестовыми данными
 
-            await DuplicateResolverService.DuplicateResolvePerfect(); // выполняем логику задания 1.3
+            await testLogic(); // выполняем логику задания
 
             var etalonClubs = provider.GetEtalonModel();
 
@@ -106,8 +67,8 @@ public class Tests
         }
         catch (Exception)
         {
-
-            provider.TruncateModelFromDatabase(); // очищаем базу
+           provider.TruncateModelFromDatabase(); // очищаем базу
         }
     }
 }
+

@@ -21,7 +21,6 @@ namespace Vsporte.BaseManipulationsWebApi.Controllers
         /// </summary>
         /// <param name="strategyId">Флаг для выбора нужной стратегии</param>
         /// <param name="todoId">Флаг определения уровни сложности задания</param>
-        /// <returns></returns>
         [HttpGet]
         public async Task DuplicateResolve(TodoIdChangerEnum todoId)
         {

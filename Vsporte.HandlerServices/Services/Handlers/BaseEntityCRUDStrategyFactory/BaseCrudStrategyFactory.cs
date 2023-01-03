@@ -9,8 +9,18 @@ using VSporte.HelpEnums.BaseCRUDManipulation;
 
 namespace Vsporte.HandlerServices.Services.Handlers.BaseEntityCRUDStrategyFactory
 {
+    /// <summary>
+    /// Класс - фабрика для создания еужной стратегии
+    /// в зависимости от входного параметра контроллера
+    /// </summary>
     public class BaseCrudStrategyFactory : IBaseCrudStrategyFactory
     {
+        /// <summary>
+        /// Метод строящий нужную стратегию
+        /// для базовых сущностей
+        /// </summary>
+        /// <param name="strategyId"></param>
+        /// <returns>Стратегия для выбранной сущности</returns>
         public IBaseCrudStrategy CreateStrategy(StrategyChangeEnum strategyId)
         {
             switch (strategyId)
