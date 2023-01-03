@@ -1,8 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSporte.Task.Test", "VSporte.Task.Test\VSporte.Task.Test.csproj", "{BEB2F386-2B18-43D8-AD9D-587F37333160}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VSporte.Task.Test", "VSporte.Task.Test\VSporte.Task.Test.csproj", "{BEB2F386-2B18-43D8-AD9D-587F37333160}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSporte.Task.Solution", "VSporte.Task.Solution\VSporte.Task.Solution.csproj", "{CB46839C-D229-4F77-939A-7D59822B2AD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VSporte.DataAccessLayer", "VSporte.Task.Solution\VSporte.DataAccessLayer.csproj", "{CB46839C-D229-4F77-939A-7D59822B2AD8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vsporte.BaseManipulationsWebApi", "Vsporte.BaseManipulationsWebApi\Vsporte.BaseManipulationsWebApi.csproj", "{E6CD4F7B-3077-4F60-8A64-8FA2142017D9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vsporte.HandlerServices", "Vsporte.HandlerServices\Vsporte.HandlerServices.csproj", "{AF7E1E55-066E-492C-A9C8-127D3E854774}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VSporte.HelpEnums", "VSporte.HelpEnums\VSporte.HelpEnums.csproj", "{13E89F2A-A0CE-460C-B923-106FFA5E93AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StoredProcedures", "StoredProcedures", "{ACFD990D-68FE-4167-883B-0753E5C3E3D7}"
+	ProjectSection(SolutionItems) = preProject
+		DuplicatesKiller(Task1_2).sql = DuplicatesKiller(Task1_2).sql
+		DuplicatesKiller(Task1_3).sql = DuplicatesKiller(Task1_3).sql
+		NormalizeName.sql = NormalizeName.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +34,23 @@ Global
 		{CB46839C-D229-4F77-939A-7D59822B2AD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB46839C-D229-4F77-939A-7D59822B2AD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB46839C-D229-4F77-939A-7D59822B2AD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6CD4F7B-3077-4F60-8A64-8FA2142017D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6CD4F7B-3077-4F60-8A64-8FA2142017D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6CD4F7B-3077-4F60-8A64-8FA2142017D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6CD4F7B-3077-4F60-8A64-8FA2142017D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF7E1E55-066E-492C-A9C8-127D3E854774}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF7E1E55-066E-492C-A9C8-127D3E854774}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF7E1E55-066E-492C-A9C8-127D3E854774}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF7E1E55-066E-492C-A9C8-127D3E854774}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13E89F2A-A0CE-460C-B923-106FFA5E93AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13E89F2A-A0CE-460C-B923-106FFA5E93AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13E89F2A-A0CE-460C-B923-106FFA5E93AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13E89F2A-A0CE-460C-B923-106FFA5E93AD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DC00C793-C5AC-4807-AA6E-17E6117923DD}
 	EndGlobalSection
 EndGlobal
